@@ -1,241 +1,294 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+                                                                                             import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
-import { 
-getFirestore,
-collection,
-getDocs
-} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+                                                                                             import { 
+                                                                                             getFirestore,
+                                                                                             collection,
+                                                                                             getDocs
+                                                                                             } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
-const firebaseConfig = {
+                                                                                             const firebaseConfig = {
 
-apiKey: "AIzaSyCDmpUtw_20a_yw7IqJ3wk4c01Eza7Qbu0",
+                                                                                             apiKey: "AIzaSyCDmpUtw_20a_yw7IqJ3wk4c01Eza7Qbu0",
 
-authDomain: "nsi-vegetables-pattambi.firebaseapp.com",
+                                                                                             authDomain: "nsi-vegetables-pattambi.firebaseapp.com",
 
-projectId: "nsi-vegetables-pattambi",
+                                                                                             projectId: "nsi-vegetables-pattambi",
 
-storageBucket: "nsi-vegetables-pattambi.firebasestorage.app",
+                                                                                             storageBucket: "nsi-vegetables-pattambi.firebasestorage.app",
 
-messagingSenderId: "469228079994",
+                                                                                             messagingSenderId: "469228079994",
 
-appId: "1:469228079994:web:80af23d2126cb66a63e4c3"
+                                                                                             appId: "1:469228079994:web:80af23d2126cb66a63e4c3"
 
-};
+                                                                                             };
 
 
-const app = initializeApp(firebaseConfig);
+                                                                                             const app = initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
+                                                                                             const db = getFirestore(app);
 
 
-const whatsapp = "917593925926";
+                                                                                             const whatsapp = "917593925926";
 
 
-let products = [];
+                                                                                             let products = [];
 
 
-getProducts();
+                                                                                             // Firebase load
 
+                                                                                             getProducts();
 
-async function getProducts(){
 
-const snap = await getDocs(collection(db,"products"));
+                                                                                             async function getProducts(){
 
+                                                                                             try{
 
-products=[];
 
+                                                                                             const snap = await getDocs(collection(db,"products"));
 
-snap.forEach(doc=>{
 
-products.push({
+                                                                                             console.log("Total products:", snap.size);
 
-id:doc.id,
 
-...doc.data(),
+                                                                                             products = [];
 
-qty:0
 
-});
+                                                                                             snap.forEach((doc)=>{
 
-});
 
+                                                                                             console.log(doc.data());
 
-showProducts();
 
-}
+                                                                                             products.push({
 
+                                                                                             id: doc.id,
 
+                                                                                             name: doc.data().name,
 
-function qtyText(q){
+                                                                                             price: Number(doc.data().price),
 
-if(q==0) return "0";
+                                                                                             qty:0
 
-if(q<1){
+                                                                                             });
 
-return (q*1000)+"g";
 
-}
+                                                                                             });
 
-return q+"kg";
 
-}
+                                                                                             showProducts();
 
 
+                                                                                             }
 
-function showProducts(){
+                                                                                             catch(error){
 
-let html="";
+                                                                                             console.log(error);
 
+                                                                                             alert("Firebase Error : "+error.message);
 
-products.forEach((p,i)=>{
+                                                                                             }
 
 
-html += `
+                                                                                             }
 
-<div class="card">
 
-<div>
 
-<b>${p.name}</b><br>
+                                                                                             // kg / gram display
 
-<span style="color:green;font-size:20px">
+                                                                                             function qtyText(q){
 
-₹${p.price}/kg
+                                                                                             if(q==0){
 
-</span>
+                                                                                             return "0";
 
-</div>
+                                                                                             }
 
 
-<div>
+                                                                                             if(q<1){
 
-<button onclick="change(${i},-1)">-</button>
+                                                                                             return (q*1000)+"g";
 
+                                                                                             }
 
-<b>${qtyText(p.qty)}</b>
 
+                                                                                             return q+"kg";
 
-<button onclick="change(${i},1)">+</button>
+                                                                                             }
 
 
-</div>
 
+                                                                                             // show products
 
-</div>
+                                                                                             function showProducts(){
 
-`;
 
+                                                                                             let html="";
 
-});
 
+                                                                                             products.forEach((p,i)=>{
 
-document.getElementById("products").innerHTML=html;
 
+                                                                                             html += `
 
-updateCart();
+                                                                                             <div class="card">
 
+                                                                                             <div>
 
-}
+                                                                                             <b>${p.name}</b><br>
 
+                                                                                             <span style="color:green;font-size:20px">
 
+                                                                                             ₹${p.price}/kg
 
-window.change=function(i,v){
+                                                                                             </span>
 
+                                                                                             </div>
 
-products[i].qty += 0.25*v;
 
+                                                                                             <div>
 
-if(products[i].qty<0)
 
-products[i].qty=0;
+                                                                                             <button onclick="change(${i},-1)">-</button>
 
 
-if(products[i].qty>10)
+                                                                                             <b style="padding:0 10px">
 
-products[i].qty=10;
+                                                                                             ${qtyText(p.qty)}
 
+                                                                                             </b>
 
-showProducts();
 
+                                                                                             <button onclick="change(${i},1)">+</button>
 
-}
 
+                                                                                             </div>
 
 
-function updateCart(){
+                                                                                             </div>
 
+                                                                                             `;
 
-let html="";
 
-let total=0;
+                                                                                             });
 
 
-products.forEach(p=>{
+                                                                                             document.getElementById("products").innerHTML=html;
 
 
-if(p.qty>0){
+                                                                                             updateCart();
 
 
-html += `${p.name} - ${qtyText(p.qty)}<br>`;
+                                                                                             }
 
 
-total += p.qty*p.price;
 
 
-}
+                                                                                             window.change=function(i,v){
 
 
-});
+                                                                                             products[i].qty += 0.25*v;
 
 
-document.getElementById("cartItems").innerHTML=
+                                                                                             if(products[i].qty < 0){
 
-html || "Cart Empty";
+                                                                                             products[i].qty=0;
 
+                                                                                             }
 
-document.getElementById("total").innerHTML=
 
-total.toFixed(2);
+                                                                                             if(products[i].qty > 10){
 
+                                                                                             products[i].qty=10;
 
-}
+                                                                                             }
 
 
+                                                                                             products[i].qty = Number(products[i].qty.toFixed(2));
 
-window.sendOrder=function(){
 
+                                                                                             showProducts();
 
-let msg="*🥬 NSI VEGETABLES ORDER*%0A%0A";
 
+                                                                                             }
 
-products.forEach(p=>{
 
 
-if(p.qty>0){
 
-msg += `${p.name} - ${qtyText(p.qty)}%0A`;
 
-}
+                                                                                             function updateCart(){
 
 
-});
+                                                                                             let html="";
 
+                                                                                             let total=0;
 
-msg += `%0ATotal ₹${document.getElementById("total").innerHTML}`;
 
+                                                                                             products.forEach(p=>{
 
-msg += `%0AName: ${document.getElementById("name").value}`;
 
-msg += `%0APhone: ${document.getElementById("phone").value}`;
+                                                                                             if(p.qty>0){
 
-msg += `%0AAddress: ${document.getElementById("address").value}`;
 
+                                                                                             html += `${p.name} - ${qtyText(p.qty)}<br>`;
 
-window.open(
-`https://wa.me/${whatsapp}?text=${msg}`
-);
 
+                                                                                             total += p.qty*p.price;
 
-}
-                                                                                               
+
+                                                                                             }
+
+
+                                                                                             });
+
+
+                                                                                             document.getElementById("cartItems").innerHTML = html || "Cart Empty";
+
+
+                                                                                             document.getElementById("total").innerHTML = total.toFixed(2);
+
+
+                                                                                             }
+
+
+
+
+
+                                                                                             window.sendOrder=function(){
+
+
+                                                                                             let msg="*🥬 NSI VEGETABLES ORDER*%0A%0A";
+
+
+                                                                                             products.forEach(p=>{
+
+
+                                                                                             if(p.qty>0){
+
+
+                                                                                             msg += `${p.name} - ${qtyText(p.qty)}%0A`;
+
+
+                                                                                             }
+
+
+                                                                                             });
+
+
+                                                                                             msg += `%0ATotal ₹${document.getElementById("total").innerHTML}`;
+
+
+                                                                                             msg += `%0AName : ${document.getElementById("name").value}`;
+
+                                                                                             msg += `%0APhone : ${document.getElementById("phone").value}`;
+
+                                                                                             msg += `%0AAddress : ${document.getElementById("address").value}`;
+
+
+
+                                                                                             window.open(
+                                                                                             `https://wa.me/${whatsapp}?text=${msg}`
+                                                                                             );
+
+
+                                                                                             }
