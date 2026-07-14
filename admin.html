@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html lang="ml">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NSI Admin</title>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>NSI Admin Panel</title>
+        <link rel="stylesheet" href="admin.css">
+        </head>
+        <body>
 
-<link rel="stylesheet" href="style.css">
+        <div class="container">
 
-</head>
-<body>
+        <h2>NSI VEGETABLES ADMIN</h2>
 
-<header>⚙️ NSI ADMIN PANEL</header>
+        <input type="text" id="name" placeholder="പച്ചക്കറി പേര്">
 
-<div class="container">
+        <input type="number" id="price" placeholder="വില">
 
-<div id="adminList"></div>
+        <input type="text" id="image" placeholder="Image URL">
 
-<button onclick="saveProducts()">
-💾 Save Changes
-</button>
+        <button onclick="addProduct()">SAVE PRODUCT</button>
 
-</div>
+        <hr>
 
-<script src="admin.js"></script>
+        <h3>Products</h3>
 
-</body>
-</html>
+        <div id="products"></div>
+
+        </div>
+
+        <script type="module" src="admin.js"></script>
+
+        </body>
+        </html>
