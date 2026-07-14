@@ -1,1 +1,28 @@
-
+[
+      {
+          "name": "ഉരുളക്കിഴങ്ങ്",
+              "regular": 30,
+                  "offer": 25
+                    },
+                      {
+                          "name": "തക്കാളി",
+                              "regular": 35,
+                                  "offer": 30
+                                    },
+                                      {
+                                          "name": "സവാള",
+                                              "regular": 45,
+                                                  "offer": 40
+                                                    },
+                                                      {
+                                                          "name": "പച്ചമുളക്",
+                                                              "regular": 70,
+                                                                  "offer": 60
+                                                                    },
+                                                                      {
+                                                                          "name": "വെണ്ടക്ക",
+                                                                              "regular": 55,
+                                                                                  "offer": 50
+                                                                                    }
+                                                                                    ]
+]
