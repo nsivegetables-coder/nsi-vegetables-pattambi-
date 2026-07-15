@@ -1,18 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="ml">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NSI VEGETABLES</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>NSI VEGETABLES</title>
+                <link rel="stylesheet" href="style.css">
+                </head>
+                <body>
 
-<h1>🥬 NSI VEGETABLES</h1>
+                    <div class="header">
+                            <h1>🥬 NSI VEGETABLES</h1>
+                                    <p>Fresh Vegetables Delivered</p>
+                                        </div>
 
-<div id="products"></div>
+                                            <div class="container">
+                                                    <div class="cart-section">
+                                                                <h2>🛒 Cart</h2>
+                                                                            <div id="cart-items">Cart Empty</div>
+                                                                                        <div class="cart-total" id="cart-total">Total: ₹0</div>
+                                                                                                    
+                                                                                                                <div class="order-form">
+                                                                                                                                <input type="text" id="cust-name" placeholder="Your Name" required>
+                                                                                                                                                <input type="tel" id="cust-phone" placeholder="Phone Number" required>
+                                                                                                                                                                <textarea id="cust-address" placeholder="Delivery Address" rows="3" required></textarea>
+                                                                                                                                                                                <button type="button" onclick="sendWhatsAppOrder()">Place WhatsApp Order</button>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                                    </div>
 
-<script src="script.js"></script>
+                                                                                                                                                                                                            <div class="products-section">
+                                                                                                                                                                                                                        <h2>🥦 Available Vegetables</h2>
+                                                                                                                                                                                                                                    <div id="products">Loading products...</div>
+                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                </div>
 
-</body>
-</html>
+                                                                                                                                                                                                                                                    <script src="script.js"></script>
+                                                                                                                                                                                                                                                    </body>
+                                                                                                                                                                                                                                                    </html>
+                                                                                                                                                                                                                                                    
