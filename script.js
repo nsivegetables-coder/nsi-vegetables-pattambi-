@@ -32,11 +32,11 @@ const specialItems = [
 
                                                                   fetchData(initialUrl);
 
-                                                                  // 10 മിനിറ്റിൽ പശ്ചാത്തലത്തിൽ അപ്‌ഡേറ്റ് ചെയ്യുന്നത്
+                                                                  // 1 മിനിറ്റിൽ പശ്ചാത്തലത്തിൽ അപ്‌ഡേറ്റ് ചെയ്യുന്നത്
                                                                   setInterval(() => {
                                                                       const refreshUrl = `${baseUrl}?_=${new Date().getTime()}`;
                                                                           fetchData(refreshUrl);
-                                                                          }, 600000);
+                                                                          }, 60);
 
                                                                           function displayProducts() {
                                                                             let html = "";
