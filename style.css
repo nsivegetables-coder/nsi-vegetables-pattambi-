@@ -14,148 +14,137 @@
                                 background: #27ae60;
                                     color: white;
                                         text-align: center;
-                                            padding: 20px 10px;
+                                            padding: 15px 10px;
                                             }
 
                                             .header h1 {
                                                 margin: 0;
-                                                    font-size: 24px;
-                                                    }
+                                                    font-size: 22px;
+                                                        letter-spacing: 0.5px;
+                                                        }
 
-                                                    .header p {
-                                                        margin: 5px 0 0 0;
-                                                            font-size: 14px;
-                                                                opacity: 0.9;
-                                                                }
+                                                        .container {
+                                                            max-width: 500px;
+                                                                margin: 10px auto;
+                                                                    padding: 0 10px;
+                                                                    }
 
-                                                                .container {
-                                                                    max-width: 600px;
-                                                                        margin: 20px auto;
-                                                                            padding: 0 15px;
-                                                                            }
+                                                                    .products-section, .cart-section {
+                                                                        background: white;
+                                                                            padding: 15px;
+                                                                                margin-bottom: 15px;
+                                                                                    border-radius: 12px;
+                                                                                        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                                                                                        }
 
-                                                                            .cart-section, .products-section {
-                                                                                background: white;
-                                                                                    padding: 20px;
-                                                                                        margin-bottom: 20px;
-                                                                                            border-radius: 12px;
-                                                                                                box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-                                                                                                }
+                                                                                        h2 {
+                                                                                            margin-top: 0;
+                                                                                                font-size: 18px;
+                                                                                                    color: #2c3e50;
+                                                                                                        padding-bottom: 5px;
+                                                                                                        }
 
-                                                                                                h2 {
-                                                                                                    margin-top: 0;
-                                                                                                        font-size: 18px;
-                                                                                                            border-bottom: 2px solid #f2f2f2;
-                                                                                                                padding-bottom: 8px;
-                                                                                                                    color: #2c3e50;
-                                                                                                                    }
+                                                                                                        /* നിങ്ങൾ തന്ന ഫോട്ടോയിലെ പോലെയുള്ള പ്രൊഡക്റ്റ് റോ ഡിസൈൻ */
+                                                                                                        .product {
+                                                                                                            display: flex;
+                                                                                                                justify-content: space-between;
+                                                                                                                    align-items: center;
+                                                                                                                        padding: 12px 5px;
+                                                                                                                            border-bottom: 1px solid #f2f2f2;
+                                                                                                                            }
 
-                                                                                                                    /* പ്രൊഡക്റ്റ് കാർഡ് ഡിസൈൻ */
-                                                                                                                    .product {
-                                                                                                                        display: block;
-                                                                                                                            border-bottom: 1px solid #eee;
-                                                                                                                                padding: 15px 0;
+                                                                                                                            .product:last-child {
+                                                                                                                                border-bottom: none;
                                                                                                                                 }
 
-                                                                                                                                .product:last-child {
-                                                                                                                                    border-bottom: none;
-                                                                                                                                    }
+                                                                                                                                .product-details {
+                                                                                                                                    display: flex;
+                                                                                                                                        flex-direction: column;
+                                                                                                                                        }
 
-                                                                                                                                    .product h3 {
-                                                                                                                                        margin: 0 0 8px 0;
-                                                                                                                                            font-size: 18px;
-                                                                                                                                            }
+                                                                                                                                        .product-name {
+                                                                                                                                            font-size: 16px;
+                                                                                                                                                font-weight: bold;
+                                                                                                                                                    margin: 0 0 4px 0;
+                                                                                                                                                        color: #000;
+                                                                                                                                                        }
 
-                                                                                                                                            .price-info {
-                                                                                                                                                margin-bottom: 10px;
-                                                                                                                                                    font-size: 14px;
-                                                                                                                                                    }
+                                                                                                                                                        .product-price {
+                                                                                                                                                            font-size: 14px;
+                                                                                                                                                                color: #555;
+                                                                                                                                                                    margin: 0;
+                                                                                                                                                                    }
 
-                                                                                                                                                    .reg-price {
-                                                                                                                                                        text-decoration: line-through;
-                                                                                                                                                            color: #7f8c8d;
-                                                                                                                                                                margin-right: 10px;
-                                                                                                                                                                }
+                                                                                                                                                                    /* പ്ലസ് / മൈനസ് കൺട്രോളുകൾ */
+                                                                                                                                                                    .qty-controls {
+                                                                                                                                                                        display: flex;
+                                                                                                                                                                            align-items: center;
+                                                                                                                                                                                background: #f9f9f9;
+                                                                                                                                                                                    border-radius: 6px;
+                                                                                                                                                                                        padding: 2px;
+                                                                                                                                                                                        }
 
-                                                                                                                                                                .off-price {
-                                                                                                                                                                    color: #e74c3c;
-                                                                                                                                                                        font-weight: bold;
-                                                                                                                                                                        }
-
-                                                                                                                                                                        .controls {
-                                                                                                                                                                            display: block;
-                                                                                                                                                                                margin-top: 10px;
-                                                                                                                                                                                }
-
-                                                                                                                                                                                select {
-                                                                                                                                                                                    padding: 8px;
-                                                                                                                                                                                        border-radius: 6px;
-                                                                                                                                                                                            border: 1px solid #ccc;
-                                                                                                                                                                                                margin-right: 10px;
-                                                                                                                                                                                                    font-size: 14px;
-                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                    .add-btn {
-                                                                                                                                                                                                        background: #27ae60;
-                                                                                                                                                                                                            color: white;
-                                                                                                                                                                                                                border: none;
-                                                                                                                                                                                                                    padding: 8px 15px;
-                                                                                                                                                                                                                        border-radius: 6px;
+                                                                                                                                                                                        .btn-minus, .btn-plus {
+                                                                                                                                                                                            background: #27ae60;
+                                                                                                                                                                                                color: white;
+                                                                                                                                                                                                    border: none;
+                                                                                                                                                                                                        width: 28px;
+                                                                                                                                                                                                            height: 28px;
+                                                                                                                                                                                                                border-radius: 4px;
+                                                                                                                                                                                                                    font-size: 16px;
+                                                                                                                                                                                                                        font-weight: bold;
                                                                                                                                                                                                                             cursor: pointer;
-                                                                                                                                                                                                                                font-weight: bold;
-                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                display: flex;
+                                                                                                                                                                                                                                    align-items: center;
+                                                                                                                                                                                                                                        justify-content: center;
+                                                                                                                                                                                                                                        }
 
-                                                                                                                                                                                                                                .add-btn:hover {
-                                                                                                                                                                                                                                    background: #219653;
-                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                        .qty-value {
+                                                                                                                                                                                                                                            font-size: 15px;
+                                                                                                                                                                                                                                                font-weight: bold;
+                                                                                                                                                                                                                                                    width: 30px;
+                                                                                                                                                                                                                                                        text-align: center;
+                                                                                                                                                                                                                                                            color: #000;
+                                                                                                                                                                                                                                                            }
 
-                                                                                                                                                                                                                                    /* കാർട്ട് ഐറ്റംസ് ലിസ്റ്റ് */
-                                                                                                                                                                                                                                    .cart-item {
-                                                                                                                                                                                                                                        display: block;
-                                                                                                                                                                                                                                            font-size: 14px;
-                                                                                                                                                                                                                                                margin-bottom: 8px;
-                                                                                                                                                                                                                                                    padding: 5px 0;
-                                                                                                                                                                                                                                                        border-bottom: 1px dashed #eee;
-                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                            /* കാർട്ട് ഐറ്റംസ് */
+                                                                                                                                                                                                                                                            .cart-item {
+                                                                                                                                                                                                                                                                display: flex;
+                                                                                                                                                                                                                                                                    justify-content: space-between;
+                                                                                                                                                                                                                                                                        font-size: 14px;
+                                                                                                                                                                                                                                                                            margin-bottom: 8px;
+                                                                                                                                                                                                                                                                                padding-bottom: 5px;
+                                                                                                                                                                                                                                                                                    border-bottom: 1px dashed #eee;
+                                                                                                                                                                                                                                                                                    }
 
-                                                                                                                                                                                                                                                        .remove-btn {
-                                                                                                                                                                                                                                                            color: #e74c3c;
-                                                                                                                                                                                                                                                                cursor: pointer;
-                                                                                                                                                                                                                                                                    margin-left: 10px;
-                                                                                                                                                                                                                                                                        font-weight: bold;
-                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                    .cart-total {
+                                                                                                                                                                                                                                                                                        font-size: 18px;
+                                                                                                                                                                                                                                                                                            font-weight: bold;
+                                                                                                                                                                                                                                                                                                margin: 15px 0;
+                                                                                                                                                                                                                                                                                                    color: #000;
+                                                                                                                                                                                                                                                                                                    }
 
-                                                                                                                                                                                                                                                                        .cart-total {
-                                                                                                                                                                                                                                                                            font-size: 18px;
-                                                                                                                                                                                                                                                                                font-weight: bold;
-                                                                                                                                                                                                                                                                                    margin: 15px 0;
-                                                                                                                                                                                                                                                                                        color: #27ae60;
-                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                    /* ഓർഡർ ഫോമും ഗ്രീൻ ബട്ടണും */
+                                                                                                                                                                                                                                                                                                    .order-form input, .order-form textarea {
+                                                                                                                                                                                                                                                                                                        width: 100%;
+                                                                                                                                                                                                                                                                                                            padding: 10px;
+                                                                                                                                                                                                                                                                                                                margin-bottom: 10px;
+                                                                                                                                                                                                                                                                                                                    border: 1px solid #ddd;
+                                                                                                                                                                                                                                                                                                                        border-radius: 6px;
+                                                                                                                                                                                                                                                                                                                            font-size: 14px;
+                                                                                                                                                                                                                                                                                                                                background: #fff;
+                                                                                                                                                                                                                                                                                                                                }
 
-                                                                                                                                                                                                                                                                                        /* ഓർഡർ ഫോം */
-                                                                                                                                                                                                                                                                                        .order-form input, .order-form textarea {
-                                                                                                                                                                                                                                                                                            width: 100%;
-                                                                                                                                                                                                                                                                                                padding: 10px;
-                                                                                                                                                                                                                                                                                                    margin-bottom: 12px;
-                                                                                                                                                                                                                                                                                                        border: 1px solid #ccc;
-                                                                                                                                                                                                                                                                                                            border-radius: 6px;
-                                                                                                                                                                                                                                                                                                                font-size: 14px;
-                                                                                                                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                                                                                                                .order-form button {
-                                                                                                                                                                                                                                                                                                                    width: 100%;
-                                                                                                                                                                                                                                                                                                                        background: #27ae60;
-                                                                                                                                                                                                                                                                                                                            color: white;
-                                                                                                                                                                                                                                                                                                                                border: none;
-                                                                                                                                                                                                                                                                                                                                    padding: 12px;
-                                                                                                                                                                                                                                                                                                                                        border-radius: 6px;
-                                                                                                                                                                                                                                                                                                                                            font-size: 16px;
-                                                                                                                                                                                                                                                                                                                                                font-weight: bold;
-                                                                                                                                                                                                                                                                                                                                                    cursor: pointer;
-                                                                                                                                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                                                                                                                                    .order-form button:hover {
-                                                                                                                                                                                                                                                                                                                                                        background: #219653;
-                                                                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                .order-form button {
+                                                                                                                                                                                                                                                                                                                                    width: 100%;
+                                                                                                                                                                                                                                                                                                                                        background: #2ecc71;
+                                                                                                                                                                                                                                                                                                                                            color: white;
+                                                                                                                                                                                                                                                                                                                                                border: none;
+                                                                                                                                                                                                                                                                                                                                                    padding: 12px;
+                                                                                                                                                                                                                                                                                                                                                        border-radius: 6px;
+                                                                                                                                                                                                                                                                                                                                                            font-size: 16px;
+                                                                                                                                                                                                                                                                                                                                                                font-weight: bold;
+                                                                                                                                                                                                                                                                                                                                                                    cursor: pointer;
+                                                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                                                    
 }
