@@ -61,7 +61,7 @@ const specialItems = [
 
                                                                                                                                               // കറിവേപ്പില, മല്ലിചെപ്പ്, പൊതീന എന്നിവയാണോ എന്ന് പരിശോധിക്കുന്നു
                                                                                                                                                     let isSpecial = specialItems.some(special => special.toLowerCase().trim() === name.toString().toLowerCase().trim());
-                                                                                                                                                          let changeValue = isSpecial ? 0.01 : 0.25;
+                                                                                                                                                          let changeValue = isSpecial ? 0.05 : 0.25;
 
                                                                                                                                                                 html += `
                                                                                                                                                                         <div class="product">
