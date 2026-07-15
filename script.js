@@ -1,7 +1,7 @@
 const baseUrl = "https://script.google.com/macros/s/AKfycbyg9RmH2iFblNzWNBBL7J4SR-W003CQnDju8RPoPBINF_cD6Fdidkn7h9QLvMsL8u4z/exec";
 const whatsappNumber = "917593925926";
 
-// 💡 10g മുതൽ തുടങ്ങേണ്ട സാധനങ്ങളുടെ മലയാളം, ഇംഗ്ലീഷ് പേരുകൾ താഴെ നൽകിയിരിക്കുന്നു
+// 💡 50g മുതൽ തുടങ്ങേണ്ട സാധനങ്ങളുടെ മലയാളം, ഇംഗ്ലീഷ് പേരുകൾ താഴെ നൽകിയിരിക്കുന്നു
 const specialItems = [
   "കറിവേപ്പില", "Curry leaves", "Curryleaves",
     "മല്ലിചെപ്പ്", "Coriander", "Coriander leaves",
