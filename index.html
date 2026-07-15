@@ -1,63 +1,60 @@
 <!DOCTYPE html>
-<html lang="ml">
-
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>NSI VEGETABLES</title>
+<title>NSI VEGETABLES PATTAMBI</title>
 
 <link rel="stylesheet" href="style.css">
 
 </head>
-
 <body>
 
 <header>
-🥬 NSI VEGETABLES PATTAMBI
-</header>
 
+<h1>🥬 NSI VEGETABLES</h1>
+
+<p>Fresh Vegetables Delivered</p>
+
+</header>
 
 <div class="container">
 
 <div id="products"></div>
 
-
 <div class="cart">
 
 <h2>🛒 Cart</h2>
 
-<div id="cartItems">
-Cart Empty
-</div>
+<div id="cartItems">Cart Empty</div>
 
+<h3>Total ₹<span id="total">0</span></h3>
 
-<h3>
-Total ₹<span id="total">0</span>
-</h3>
+<input
+type="text"
+id="name"
+placeholder="Your Name">
 
+<input
+type="text"
+id="phone"
+placeholder="Phone Number">
 
-<input id="name" placeholder="Name">
-
-<input id="phone" placeholder="Phone">
-
-
-<textarea id="address" placeholder="Address"></textarea>
-
+<textarea
+id="address"
+placeholder="Delivery Address"></textarea>
 
 <button onclick="sendOrder()">
-WhatsApp Order
+
+Place WhatsApp Order
+
 </button>
 
+</div>
 
 </div>
 
-
-</div>
-
-
-<script type="module" src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
-
 </html>

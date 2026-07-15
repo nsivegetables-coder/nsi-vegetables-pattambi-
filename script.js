@@ -1,294 +1,157 @@
-                                                                                             import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+const sheetURL = "https://script.google.com/macros/s/AKfycbyg9RmH2iFblNzWNBBL7J4SR-W003CQnDju8RPoPBINF_cD6Fdidkn7h9QLvMsL8u4z/exec";
 
-                                                                                             import { 
-                                                                                             getFirestore,
-                                                                                             collection,
-                                                                                             getDocs
-                                                                                             } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+const whatsapp = "917593925926";
 
+let products = [];
 
-                                                                                             const firebaseConfig = {
+async function loadProducts(){
 
-                                                                                             apiKey: "AIzaSyCDmpUtw_20a_yw7IqJ3wk4c01Eza7Qbu0",
+const res = await fetch(sheetURL);
 
-                                                                                             authDomain: "nsi-vegetables-pattambi.firebaseapp.com",
+products = await res.json();
 
-                                                                                             projectId: "nsi-vegetables-pattambi",
+products.forEach(p=>{
 
-                                                                                             storageBucket: "nsi-vegetables-pattambi.firebasestorage.app",
+p.qty=0;
 
-                                                                                             messagingSenderId: "469228079994",
+});
 
-                                                                                             appId: "1:469228079994:web:80af23d2126cb66a63e4c3"
+showProducts();
 
-                                                                                             };
+}
 
+loadProducts();
 
-                                                                                             const app = initializeApp(firebaseConfig);
+function qtyText(q){
 
-                                                                                             const db = getFirestore(app);
+if(q==0) return "0";
 
+if(q<1) return (q*1000)+"g";
 
-                                                                                             const whatsapp = "917593925926";
+return q+"kg";
 
+} 
+function showProducts(){
 
-                                                                                             let products = [];
+    let html="";
 
+    products.forEach((p,i)=>{
 
-                                                                                             // Firebase load
+    html += `
 
-                                                                                             getProducts();
+    <div class="product">
 
+    <div>
 
-                                                                                             async function getProducts(){
+    <h3>${p.name}</h3>
 
-                                                                                             try{
+    <div class="old">
 
+    ₹${p["regular price"]}
 
-                                                                                             const snap = await getDocs(collection(db,"products"));
+    </div>
 
+    <div class="new">
 
-                                                                                             console.log("Total products:", snap.size);
+    ₹${p["offer price"]}/kg
 
+    </div>
 
-                                                                                             products = [];
+    </div>
 
+    <div>
 
-                                                                                             snap.forEach((doc)=>{
+    <button onclick="changeQty(${i},-1)">-</button>
 
+    <b style="padding:10px">
 
-                                                                                             console.log(doc.data());
+    ${qtyText(p.qty)}
 
+    </b>
 
-                                                                                             products.push({
+    <button onclick="changeQty(${i},1)">+</button>
 
-                                                                                             id: doc.id,
+    </div>
 
-                                                                                             name: doc.data().name,
+    </div>
 
-                                                                                             price: Number(doc.data().price),
+    `;
 
-                                                                                             qty:0
+    });
 
-                                                                                             });
+    document.getElementById("products").innerHTML=html;
 
+    updateCart();
 
-                                                                                             });
+    } 
+} 
+function changeQty(i,v){
 
+    products[i].qty += 0.25 * v;
 
-                                                                                             showProducts();
+    if(products[i].qty < 0){
+    products[i].qty = 0;
+    }
 
+    if(products[i].qty > 10){
+    products[i].qty = 10;
+    }
 
-                                                                                             }
+    products[i].qty = Number(products[i].qty.toFixed(2));
 
-                                                                                             catch(error){
+    showProducts();
 
-                                                                                             console.log(error);
+    }
 
-                                                                                             alert("Firebase Error : "+error.message);
+    function updateCart(){
 
-                                                                                             }
+    let html = "";
 
+    let total = 0;
 
-                                                                                             }
+    products.forEach(p=>{
 
+    if(p.qty>0){
 
+    html += `${p.name} - ${qtyText(p.qty)}<br>`;
 
-                                                                                             // kg / gram display
+    total += p.qty * Number(p["offer price"]);
 
-                                                                                             function qtyText(q){
+    }
 
-                                                                                             if(q==0){
+    });
 
-                                                                                             return "0";
+    document.getElementById("cartItems").innerHTML =
+    html || "Cart Empty";
 
-                                                                                             }
+    document.getElementById("total").innerHTML =
+    total.toFixed(2);
 
+    }
 
-                                                                                             if(q<1){
+    function sendOrder(){
 
-                                                                                             return (q*1000)+"g";
+    let msg="*🥬 NSI VEGETABLES ORDER*%0A%0A";
 
-                                                                                             }
+    products.forEach(p=>{
 
+    if(p.qty>0){
 
-                                                                                             return q+"kg";
+    msg += `${p.name} - ${qtyText(p.qty)} - ₹${Number(p["offer price"])*p.qty}%0A`;
 
-                                                                                             }
+    }
 
+    });
 
+    msg += `%0A💰 Total : ₹${document.getElementById("total").innerHTML}`;
 
-                                                                                             // show products
+    msg += `%0A%0A👤 Name : ${document.getElementById("name").value}`;
 
-                                                                                             function showProducts(){
+    msg += `%0A📞 Phone : ${document.getElementById("phone").value}`;
 
+    msg += `%0A📍 Address : ${document.getElementById("address").value}`;
 
-                                                                                             let html="";
+    window.open(`https://wa.me/${whatsapp}?text=${msg}`);
 
-
-                                                                                             products.forEach((p,i)=>{
-
-
-                                                                                             html += `
-
-                                                                                             <div class="card">
-
-                                                                                             <div>
-
-                                                                                             <b>${p.name}</b><br>
-
-                                                                                             <span style="color:green;font-size:20px">
-
-                                                                                             ₹${p.price}/kg
-
-                                                                                             </span>
-
-                                                                                             </div>
-
-
-                                                                                             <div>
-
-
-                                                                                             <button onclick="change(${i},-1)">-</button>
-
-
-                                                                                             <b style="padding:0 10px">
-
-                                                                                             ${qtyText(p.qty)}
-
-                                                                                             </b>
-
-
-                                                                                             <button onclick="change(${i},1)">+</button>
-
-
-                                                                                             </div>
-
-
-                                                                                             </div>
-
-                                                                                             `;
-
-
-                                                                                             });
-
-
-                                                                                             document.getElementById("products").innerHTML=html;
-
-
-                                                                                             updateCart();
-
-
-                                                                                             }
-
-
-
-
-                                                                                             window.change=function(i,v){
-
-
-                                                                                             products[i].qty += 0.25*v;
-
-
-                                                                                             if(products[i].qty < 0){
-
-                                                                                             products[i].qty=0;
-
-                                                                                             }
-
-
-                                                                                             if(products[i].qty > 10){
-
-                                                                                             products[i].qty=10;
-
-                                                                                             }
-
-
-                                                                                             products[i].qty = Number(products[i].qty.toFixed(2));
-
-
-                                                                                             showProducts();
-
-
-                                                                                             }
-
-
-
-
-
-                                                                                             function updateCart(){
-
-
-                                                                                             let html="";
-
-                                                                                             let total=0;
-
-
-                                                                                             products.forEach(p=>{
-
-
-                                                                                             if(p.qty>0){
-
-
-                                                                                             html += `${p.name} - ${qtyText(p.qty)}<br>`;
-
-
-                                                                                             total += p.qty*p.price;
-
-
-                                                                                             }
-
-
-                                                                                             });
-
-
-                                                                                             document.getElementById("cartItems").innerHTML = html || "Cart Empty";
-
-
-                                                                                             document.getElementById("total").innerHTML = total.toFixed(2);
-
-
-                                                                                             }
-
-
-
-
-
-                                                                                             window.sendOrder=function(){
-
-
-                                                                                             let msg="*🥬 NSI VEGETABLES ORDER*%0A%0A";
-
-
-                                                                                             products.forEach(p=>{
-
-
-                                                                                             if(p.qty>0){
-
-
-                                                                                             msg += `${p.name} - ${qtyText(p.qty)}%0A`;
-
-
-                                                                                             }
-
-
-                                                                                             });
-
-
-                                                                                             msg += `%0ATotal ₹${document.getElementById("total").innerHTML}`;
-
-
-                                                                                             msg += `%0AName : ${document.getElementById("name").value}`;
-
-                                                                                             msg += `%0APhone : ${document.getElementById("phone").value}`;
-
-                                                                                             msg += `%0AAddress : ${document.getElementById("address").value}`;
-
-
-
-                                                                                             window.open(
-                                                                                             `https://wa.me/${whatsapp}?text=${msg}`
-                                                                                             );
-
-
-                                                                                             }
+    }
+}
