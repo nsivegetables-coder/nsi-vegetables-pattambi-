@@ -85,7 +85,7 @@
                                                                                                                                                                                             background: #f9f9f9;
                                                                                                                                                                                                 border-radius: 6px;
                                                                                                                                                                                                     padding: 4px;
-                                                                                                                                                                                                        min-width: 140px; /* ബോക്സിന് ആവശ്യത്തിന് കുറഞ്ഞ വീതി ഉറപ്പാക്കുന്നു */
+                                                                                                                                                                                                        min-width: 180px; /* ബോക്സിന് ആവശ്യത്തിന് കുറഞ്ഞ വീതി ഉറപ്പാക്കുന്നു */
                                                                                                                                                                                                         }
 
                                                                                                                                                                                                         .btn-minus, .btn-plus {
