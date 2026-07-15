@@ -1,4 +1,7 @@
-const url = "https://script.google.com/macros/s/AKfycbyg9RmH2iFblNzWNBBL7J4SR-W003CQnDju8RPoPBINF_cD6Fdidkn7h9QLvMsL8u4z/exec";
+// പഴയ url മാറ്റിയ ശേഷം ഇത് പേസ്റ്റ് ചെയ്യുക
+const baseUrl = "https://script.google.com/macros/s/AKfycbyg9RmH2iFblNzWNBBL7J4SR-W003CQnDju8RPoPBINF_cD6Fdidkn7h9QLvMsL8u4z/exec";
+const url = `${baseUrl}?_=${new Date().getTime()}`;
+
 const whatsappNumber = "917593925926";
 
 let productList = [];
