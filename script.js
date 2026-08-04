@@ -1,4 +1,4 @@
-const baseUrl = "https://script.google.com/macros/s/AKfycbyg9RmH2iFblNzWNBBL7J4SR-W003CQnDju8RPoPBINF_cD6Fdidkn7h9QLvMsL8u4z/exec";
+  const baseUrl = "https://script.google.com/macros/s/AKfycbyg9RmH2iFblNzWNBBL7J4SR-W003CQnDju8RPoPBINF_cD6Fdidkn7h9QLvMsL8u4z/exec";
 const whatsappNumber = "917593925926";
 
 // 💡 50g മുതൽ തുടങ്ങേണ്ട സാധനങ്ങൾ
@@ -16,11 +16,12 @@ const pieceItems = [
 let productList = [];
 let cart = {};
 
-const initialUrl = `${baseUrl}?_=${new Date().getTime()}`;
-
 document.getElementById("products").innerHTML = "Loading products...";
 
-function fetchData(fetchUrl) {
+function fetchData() {
+  // Cache ലംഘിച്ച് തത്സമയം പുതിയ ഡാറ്റ കിട്ടാൻ വേണ്ടി സമയം ചേർത്തുള്ള URL
+  const fetchUrl = `${baseUrl}?t=${new Date().getTime()}`;
+
   fetch(fetchUrl)
     .then(response => response.json())
     .then(data => {
@@ -35,21 +36,19 @@ function fetchData(fetchUrl) {
     });
 }
 
-fetchData(initialUrl);
+// ആദ്യ തവണ ഉടൻ തന്നെ ലോഡ് ചെയ്യുന്നു
+fetchData();
 
-// 1 മിനിറ്റിൽ പശ്ചാത്തലത്തിൽ അപ്‌ഡേറ്റ് ചെയ്യുന്നത് (60000 ms)
-setInterval(() => {
-  const refreshUrl = `${baseUrl}?_=${new Date().getTime()}`;
-  fetchData(refreshUrl);
-}, 60000);
+// ഓരോ 10 സെക്കന്റിലും പശ്ചാത്തലത്തിൽ തത്സമയം റിഫ്രഷ് ചെയ്യുന്നു (10000ms)
+setInterval(fetchData, 10000);
 
 function displayProducts() {
-  let html = "";
-    
   if (productList.length === 0) {
     document.getElementById("products").innerHTML = "<p>No products available</p>";
     return;
   }
+
+  let html = "";
 
   productList.forEach((item, index) => {
     const keys = Object.keys(item).reduce((acc, key) => {
@@ -63,7 +62,6 @@ function displayProducts() {
     if (name !== "No Name" && offPrice > 0) {
       const itemKey = `prod_${index}`;
       
-      // ഇനം ഏതാണെന്ന് തിട്ടപ്പെടുത്തുന്നു (Piece / 50g Special / 250g Regular)
       let isPiece = pieceItems.some(p => p.toLowerCase().trim() === name.toString().toLowerCase().trim());
       let isSpecial = specialItems.some(special => special.toLowerCase().trim() === name.toString().toLowerCase().trim());
       
@@ -128,7 +126,6 @@ function changeQty(key, name, pricePerUnit, change, isPiece = false) {
   updateCartUI();
 }
 
-// ഭാരവും എണ്ണവും ഫോർമാറ്റ് ചെയ്യുന്ന ഫംഗ്ഷൻ
 function formatWeight(qty, isPiece = false) {
   if (qty === 0) return "0";
   
@@ -230,4 +227,4 @@ function sendWhatsAppOrder() {
     
   window.open(whatsappUrl, '_blank');
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
