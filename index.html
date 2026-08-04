@@ -1,38 +1,261 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="ml">
 <head>
-    <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>NSI VEGETABLES</title>
-                <link rel="stylesheet" href="style.css">
-                </head>
-                <body>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>പച്ചക്കറി പ്രൈസ് ലിസ്റ്റ് & ഓർഡർ</title>
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --light-bg: #f4f6f8;
+      --card-bg: #ffffff;
+      --text: #333333;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      padding-bottom: 90px;
+    }
 
-                    <div class="header">
-                            <h1> NSI VEGETABLES PATTAMBI </h1>
-                            <h> Fresh Vegetables Delivered </h>
-                                </div>
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-                                    <div class="container">
-                                            <div class="products-section">
-                                                        <div id="products">Loading products...</div>
-                                                                </div>
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
 
-                                                                        <div class="cart-section">
-                                                                                    <h2>🛒 Cart</h2>
-                                                                                                <div id="cart-items">Cart Empty</div>
-                                                                                                            <div class="cart-total" id="cart-total">Total ₹0</div>
-                                                                                                                        
-                                                                                                                                    <div class="order-form">
-                                                                                                                                                    <input type="text" id="cust-name" placeholder="Name" required>
-                                                                                                                                                                    <input type="tel" id="cust-phone" placeholder="Phone" required>
-                                                                                                                                                                                    <textarea id="cust-address" placeholder="Address" rows="3" required></textarea>
-                                                                                                                                                                                                    <button type="button" onclick="sendWhatsAppOrder()">Place Order</button>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                            </div>
+    .status-bar {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 15px;
+      text-align: right;
+    }
 
-                                                                                                                                                                                                                                <script src="script.js"></script>
-                                                                                                                                                                                                                                </body>
-                                                                                                                                                                                                                                </html>
-                                                                                                                                                                                                                                
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .card h3 {
+      margin: 10px 0 5px;
+      font-size: 1rem;
+    }
+
+    .price {
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .cart-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .qty {
+      font-weight: bold;
+      min-width: 20px;
+    }
+
+    /* Fixed Cart Footer */
+    .cart-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 2px solid var(--primary);
+      padding: 12px 20px;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .order-btn {
+      background-color: #25D366; /* WhatsApp Green */
+      padding: 10px 20px;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2>🥦 പച്ചക്കറി കട - ലൈവ് പ്രൈസ് ലിസ്റ്റ്</h2>
+  </header>
+
+  <div class="container">
+    <div class="status-bar" id="syncStatus">വിലകൾ ലോഡ് ചെയ്യുന്നു...</div>
+    <div class="grid" id="productGrid"></div>
+  </div>
+
+  <div class="cart-footer">
+    <div>
+      <strong>ആകെ തുക: ₹<span id="totalAmount">0</span></strong>
+    </div>
+    <button class="order-btn" onclick="sendWhatsAppOrder()">WhatsApp വഴി ഓർഡർ ചെയ്യുക</button>
+  </div>
+
+  <script>
+    // ---------------------------------------------------------------- //
+    // 1. നിങ്ങളുടെ Google Web App URL ഇവിടെ ചേർക്കുക
+    const API_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+    
+    // 2. നിങ്ങളുടെ WhatsApp നമ്പർ
+    const WHATSAPP_NUMBER = "917593925926"; 
+    // ---------------------------------------------------------------- //
+
+    let products = [];
+    let cart = {};
+
+    async function fetchProducts() {
+      try {
+        const response = await fetch(API_URL);
+        products = await response.json();
+        renderProducts();
+        document.getElementById('syncStatus').innerText = "അവസാനം അപ്‌ഡേറ്റ് ചെയ്തത്: " + new Date().toLocaleTimeString();
+      } catch (error) {
+        document.getElementById('syncStatus').innerText = "ഡാറ്റ ലോഡ് ചെയ്യുന്നതിൽ പിശക്!";
+      }
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = '';
+
+      products.forEach((p, index) => {
+        const id = p.id || p.ID || index;
+        const name = p.name || p.Name || p.ITEM || p.Item || 'Item';
+        const price = p.price || p.Price || p.RATE || p.Rate || 0;
+        // യൂണിറ്റ് ഷീറ്റിൽ ഇല്ലെങ്കിൽ ബൈ ഡിഫോൾട്ട് '1 kg' എന്ന് എടുക്കും
+        const unit = p.unit || p.Unit || p.QTY || p.Qty || '1 kg';
+        const image = p.image || p.Image || p.IMAGE || 'https://via.placeholder.com/150';
+
+        const currentQty = cart[id] ? cart[id].qty : 0;
+
+        grid.innerHTML += `
+          <div class="card">
+            <img src="${image}" alt="${name}">
+            <h3>${name}</h3>
+            <div class="price">₹${price} / ${unit}</div>
+            <div class="cart-controls">
+              <button onclick="updateCart('${id}', '${name}', ${price}, '${unit}', -1)">-</button>
+              <span class="qty">${currentQty}</span>
+              <button onclick="updateCart('${id}', '${name}', ${price}, '${unit}', 1)">+</button>
+            </div>
+          </div>
+        `;
+      });
+      updateTotal();
+    }
+
+    function updateCart(id, name, price, unit, change) {
+      if (!cart[id]) {
+        cart[id] = { name, price, unit, qty: 0 };
+      }
+      
+      cart[id].qty += change;
+      
+      if (cart[id].qty <= 0) {
+        delete cart[id];
+      }
+      
+      renderProducts();
+    }
+
+    function updateTotal() {
+      let total = 0;
+      for (const id in cart) {
+        total += cart[id].price * cart[id].qty;
+      }
+      document.getElementById('totalAmount').innerText = total;
+    }
+
+    function sendWhatsAppOrder() {
+      if (Object.keys(cart).length === 0) {
+        alert("ദയവായി കാർട്ടിലേക്ക് സാധനങ്ങൾ ചേർക്കുക!");
+        return;
+      }
+
+      let message = "*പുതിയ പച്ചക്കറി ഓർഡർ:*\n------------------\n";
+      let total = 0;
+
+      for (const id in cart) {
+        const item = cart[id];
+        const itemTotal = item.price * item.qty;
+        
+        // WhatsApp മെസ്സേജിൽ യൂണിറ്റ് വ്യക്തമായി കാണിക്കാൻ: (ഉദാഹരണത്തിന്: 2 Pcs, 2 kg)
+        message += `• ${item.name} (${item.qty} ${item.unit.replace(/^1\s*/, '')}) = ₹${itemTotal}\n`;
+        total += itemTotal;
+      }
+
+      message += `------------------\n*ആകെ തുക: ₹${total}*`;
+
+      const encodedMessage = encodeURIComponent(message);
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+    }
+
+    // ആദ്യ തവണ ഡാറ്റ ലോഡ് ചെയ്യുന്നു
+    fetchProducts();
+
+    // ഓരോ 1 മിനിറ്റിലും സ്വയം പ്രൈസ് ഓട്ടോ-റിഫ്രഷ് ചെയ്യുന്നു
+    setInterval(fetchProducts, 60000);
+  </script>
+</body>
+</html>
+                                                                                                                                                                                 
